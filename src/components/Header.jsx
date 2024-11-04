@@ -7,7 +7,7 @@ import Link from "next/link";
 const Header = async () => {
   const user = await currentUser();
   return (
-    <header>
+    <header className="w-[100%]">
       <nav className="flex justify-between items-center w-[100%] bg-white py-5 px-3">
         <div className="w-[150px]">
           <img

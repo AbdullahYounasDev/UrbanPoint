@@ -68,7 +68,7 @@ const Contact = () => {
     }
   };
   return (
-    <div className="w-[80%] m-auto my-10" id="contact">
+    <div className="w-[80%] m-auto my-10 bg-white" id="contact">
       <div className="flex justify-between gap-10">
         <div className="w-[50%]">
           <h1 className="text-[50px] font-bold ">Get in Touch</h1>
