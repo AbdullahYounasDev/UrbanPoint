@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export const createUser = async (user) => {
   try {
     await connect();
-    const existingUser = User.findOne({ clerkEmail: user.clerkEmail });
+    const existingUser = await User.findOne({ clerkEmail: user.clerkEmail });
     if (!existingUser) {
       const newUser = await User.create(user);
       return JSON.parse(JSON.stringify(newUser));
