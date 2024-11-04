@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AdminHeader />
-        <div className="flex justify-start w-[100%]">
+        <div className="flex justify-start w-[100%] gap-16">
           <AdminNav />
           {children}
         </div>
