@@ -23,19 +23,33 @@ const UsersPage = () => {
 
     fetchData();
   }, []);
+   
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set to the start of today
 
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1); // Set to the start of tomorrow
+
+  const rescentUsers = data.filter((item) => {
+    const createdDate = new Date(item.createdAt);
+    return createdDate >= today && createdDate < tomorrow; // Check if created today
+  });
+
+  console.log(rescentUsers);
   if (loading) return "Loading....";
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <div>
-        <h1 className="text-2xl font-bold mt-2 mb-4">Users Details:</h1>
-      </div>
-      <div>
+    <div className="w-[100%]">
+      <div className="flex gap-5 flex-wrap">
         <DashBoardCards
-          title={"Total User"}
+          title={"Total Users"}
           numbers={data.length === 0 ? "0" : data.length}
+          type={"All Times"}
+        />
+        <DashBoardCards
+          title={"Rescent Signups"}
+          numbers={rescentUsers.length === 0 ? "0" : rescentUsers.length}
           type={"All Times"}
         />
       </div>
