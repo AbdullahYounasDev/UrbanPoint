@@ -5,6 +5,7 @@
 body{
   background-color: white !important;
 }
+
 /* Form Section */
 
 #contact {
@@ -74,15 +75,18 @@ textarea {
   box-sizing: border-box;
   resize: vertical;
 }
-
 button {
   padding: 10px;
   background-color: #009ddc;
   color: white;
   border: none;
-  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
+  border-radius: 50px !important ;
+  padding: 7px 15px !important;
+  text-align: center;
 }
+
 
 /* Clerk */
 .cl-button {

@@ -179,8 +179,7 @@ const Contact = () => {
             <button
               onClick={handleSubmit}
               type="submit"
-              className="mt-3 bg-[#0775AC]"
-              style={{ borderRadius: "0 0 10px 10px" }}
+              className="mt-3 bg-[#0775AC] form-btn"
             >
               {isLoading ? "Submitting..." : "Submit"}
             </button>
