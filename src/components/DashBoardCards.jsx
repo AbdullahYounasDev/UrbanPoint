@@ -34,11 +34,10 @@ const DashBoardCards = ({
 
   return (
     <div
+      style={{ width: width }}
       className={`bg-white rounded-lg shadow-2xl border-sky-1 border-[1px] flex justify-${
         desc ? "start" : "center"
-      } items-${
-        desc ? "start" : "center"
-      } flex-col gap-3 w-[${width}]  p-4 my-2`}
+      } items-${desc ? "start" : "center"} flex-col gap-3  p-4 my-2`}
     >
       {type == "All Times" ? (
         <FontAwesomeIcon

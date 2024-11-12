@@ -56,7 +56,7 @@ const UsersPage = () => {
         setMessages(response.data.data);
       } catch (err) {
         setNotification({
-          message: "Server error in fetching messages",
+          message: "No Messages Found Yet",
           type: "error",
         });
       } finally {
