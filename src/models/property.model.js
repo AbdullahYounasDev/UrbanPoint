@@ -1,3 +1,5 @@
+/** @format */
+
 const { default: mongoose } = require("mongoose");
 
 const propertySchema = new mongoose.Schema({
@@ -16,11 +18,9 @@ const propertySchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["Available", "Sold"],
-    required: "true",
   },
   propertyType: {
     type: String,
-    enum: ["Rental", "Selling"],
     required: "true",
   },
   bathrooms: {
