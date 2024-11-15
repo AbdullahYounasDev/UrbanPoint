@@ -89,6 +89,7 @@ export const POST = async (request) => {
       bedrooms: Number(bedrooms),
       price: Number(price),
       address,
+      status: "Available",
     });
 
     await newProperty.save();

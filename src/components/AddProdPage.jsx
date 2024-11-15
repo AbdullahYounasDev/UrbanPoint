@@ -4,6 +4,8 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useState } from "react";
+import Notification from "./Notification";
+import Loader from "./Loader";
 
 const initialValue = {
   title: "",
@@ -17,7 +19,9 @@ const initialValue = {
 };
 
 const AddProdPage = ({ onClose }) => {
+  const [notification, setNotification] = useState({ message: "", type: "" });
   const [data, setData] = useState(initialValue);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +40,7 @@ const AddProdPage = ({ onClose }) => {
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     const formData = new FormData();
     formData.append("title", data.title);
@@ -57,29 +62,16 @@ const AddProdPage = ({ onClose }) => {
 
       // Handle success
       if (response.status === 200) {
-        alert("Property added successfully!");
         onClose(); // Close modal if onClose is provided
       }
     } catch (error) {
       // Handle errors
-      if (error.response) {
-        // Server responded with a status other than 2xx
-        console.error(
-          "Error:",
-          error.response.data.message || "Something went wrong",
-        );
-        alert(
-          `Error: ${error.response.data.message || "Failed to add property"}`,
-        );
-      } else if (error.request) {
-        // Request was made but no response received
-        console.error("No response received:", error.request);
-        alert("Network error: No response received");
-      } else {
-        // Other errors
-        console.error("Error:", error.message);
-        alert("An unexpected error occurred");
-      }
+      setNotification({
+        message: "Error in uploading listing",
+        type: "error",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -176,9 +168,18 @@ const AddProdPage = ({ onClose }) => {
             placeholder="Enter Description"
             required
           />
-          <button type="submit">Upload Listing</button>
+          <button type="submit">
+            {isLoading ? <Loader color={"white"} /> : "Upload Listing"}
+          </button>
         </form>
       </div>
+      {notification.message && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification({ message: "", type: "" })}
+        />
+      )}
     </div>
   );
 };

@@ -18,6 +18,7 @@ const propertySchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["Available", "Sold"],
+    required: "true",
   },
   propertyType: {
     type: String,

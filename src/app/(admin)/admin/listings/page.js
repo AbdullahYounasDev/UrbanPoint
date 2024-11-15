@@ -1,5 +1,8 @@
+/** @format */
+
 "use client";
 import AddProdPage from "@/components/AddProdPage";
+import ListingTable from "@/components/ListingTable";
 import ProdSearch from "@/components/ProdSearch";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +22,7 @@ const page = () => {
         </button>
       </div>
       {show && <AddProdPage onClose={() => setShow(false)} />}
+      <ListingTable />
     </div>
   );
 };
