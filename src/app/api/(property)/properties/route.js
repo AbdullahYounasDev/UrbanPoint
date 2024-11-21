@@ -78,12 +78,12 @@ export const POST = async (request) => {
       image,
       "urban-point-gallery",
     );
-
     // Save the property to the database
     const newProperty = new Property({
       title,
       description,
-      image: uploadCloudinary.url, // Assuming Cloudinary returns a URL for the uploaded image
+      image: uploadCloudinary.url,
+      imagePublicId: uploadCloudinary.public_id,
       propertyType,
       bathrooms: Number(bathrooms),
       bedrooms: Number(bedrooms),

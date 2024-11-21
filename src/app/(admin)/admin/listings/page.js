@@ -4,8 +4,6 @@
 import AddProdPage from "@/components/AddProdPage";
 import ListingTable from "@/components/ListingTable";
 import ProdSearch from "@/components/ProdSearch";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
 const page = () => {
