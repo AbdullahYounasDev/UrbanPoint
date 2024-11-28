@@ -62,7 +62,7 @@ const PropertyPage = ({ params }) => {
             <h3 className="flex gap-5 font-bold text-sky-1 text-[16px] items-center justify-start">
               <Link href="/property">Property</Link>{" "}
               <span className="text-[20px] text-black">/</span>{" "}
-              <Link href={`preview/property/${id}`}>{property.title}</Link>
+              <Link href={`/preview/property/${id}`}>{property.title}</Link>
             </h3>
             <h1 className="text-[40px] font-bold text-black">
               {property.title}

@@ -1,52 +1,83 @@
+/** @format */
+
 import Property from "@/models/property.model";
+import { connect } from "@/utils/dbConnect";
+import { uploadOnCloudinary } from "@/utils/uploadOnCloudinary";
+import { DeleteOnCloudinary } from "@/utils/deleteOnCloudinary";
 import { NextResponse } from "next/server";
 
-export const POST = async (request) => {
-  try {
-    const reqBody = await request.json();
-    const { id, ...fieldsToUpdate } = reqBody;
+connect();
 
+export const PUT = async (request) => {
+  try {
+    const formData = await request.formData();
+
+    // Get property ID from formData
+    const id = formData.get("id");
     if (!id) {
       return NextResponse.json(
-        { error: "ID is required to update" },
+        { error: "Property ID is required." },
         { status: 400 },
       );
     }
-    // second step....it convert each arrays value pair into object value pair e.g[[title:something], [price: 123], [bathroom: undefined]] to {title: something, pice: 123}
-    const filteredFields = Object.fromEntries(
-      // First Step...Object.entries covert object into array value pair...mean [[title:something], [price: 123], [bathroom: undefined]]
-      Object.entries(fieldsToUpdate).filter(
-        ([_, value]) => value !== undefined,
-      ),
-    );
 
-    if (Object.keys(filteredFields).length === 0) {
+    const property = await Property.findById(id);
+    if (!property) {
       return NextResponse.json(
-        { error: "No fields provided to update" },
-        { status: 400 },
+        { error: "Property not found." },
+        { status: 404 },
       );
     }
 
-    const updatedProperty = await Property.findByIdAndUpdate(
-      id,
-      { $set: filteredFields },
-      { new: true, runValidators: true },
-    );
+    // Extract updated fields from formData
+    const title = formData.get("title")?.trim() || property.title;
+    const description =
+      formData.get("description")?.trim() || property.description;
+    const propertyType =
+      formData.get("propertyType")?.trim() || property.propertyType;
+    const bathrooms = formData.get("bathrooms") || property.bathrooms;
+    const bedrooms = formData.get("bedrooms") || property.bedrooms;
+    const price = formData.get("price") || property.price;
+    const address = formData.get("address")?.trim() || property.address;
 
-    if (!updatedProperty) {
-      return NextResponse.json(
-        { error: "Property not found" },
-        { status: 400 },
+    // Handle image upload/update
+    let updatedImage = property.image;
+    let updatedImagePublicId = property.imagePublicId;
+    const newImage = formData.get("image");
+
+    if (newImage) {
+      // Delete the old image from Cloudinary
+      if (property.imagePublicId) {
+        await DeleteOnCloudinary(property.imagePublicId);
+      }
+
+      const uploadCloudinary = await uploadOnCloudinary(
+        newImage,
+        "urban-point-gallery",
       );
+      updatedImage = uploadCloudinary.url;
+      updatedImagePublicId = uploadCloudinary.public_id;
     }
+
+    // Update property details
+    property.title = title;
+    property.description = description;
+    property.image = updatedImage;
+    property.imagePublicId = updatedImagePublicId;
+    property.propertyType = propertyType;
+    property.bathrooms = Number(bathrooms);
+    property.bedrooms = Number(bedrooms);
+    property.price = Number(price);
+    property.address = address;
+
+    await property.save();
 
     return NextResponse.json({
       message: "Property updated successfully",
-      status: 200,
-      data: updatedProperty,
+      property,
     });
   } catch (error) {
-    console.error("Error updating property:", error);
+    console.error("Server Error:", error);
     return NextResponse.json(
       { error: "Server Error! Please try again later." },
       { status: 500 },

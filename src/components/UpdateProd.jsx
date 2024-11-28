@@ -18,7 +18,7 @@ const initialValue = {
   description: "",
 };
 
-const AddProdPage = ({ onClose }) => {
+const UpdateProd = ({ onClose, propertyId }) => {
   const [notification, setNotification] = useState({ message: "", type: "" });
   const [data, setData] = useState(initialValue);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,37 +42,38 @@ const AddProdPage = ({ onClose }) => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
+
     const formData = new FormData();
+    formData.append("id", propertyId); // `propertyId` comes from props
     formData.append("title", data.title);
     formData.append("bedrooms", data.bedrooms);
     formData.append("bathrooms", data.bathrooms);
     formData.append("address", data.address);
     formData.append("price", data.price);
     formData.append("propertyType", data.propertyType);
-    formData.append("image", data.image);
+    formData.append("image", data.image); // Handle new image or retain old
     formData.append("description", data.description);
+
     try {
-      // Send POST request to /property
-      const response = await axios.post("/api/properties", formData, {
+      const response = await axios.put("/api/updateproperty", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      // Handle success
       if (response.status === 200) {
-        onClose(); // Close modal if onClose is provided
+        onClose(); // Close modal after success
       }
     } catch (error) {
-      // Handle errors
       setNotification({
-        message: "Error in uploading listing",
+        message: "Error updating the property.",
         type: "error",
       });
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
       <div className="bg-white p-6 rounded shadow-lg relative">
@@ -83,8 +84,8 @@ const AddProdPage = ({ onClose }) => {
         </div>
         <div>
           <h1 className="text-3xl font-bold my-3">
-            Let'<span className="text-sky-1">s</span> Create Your{" "}
-            <span className="text-sky-1">New Listing</span>
+            Let'<span className="text-sky-1">s</span> Update Your{" "}
+            <span className="text-sky-1">Listing</span>
           </h1>
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
@@ -167,7 +168,7 @@ const AddProdPage = ({ onClose }) => {
             required
           />
           <button type="submit">
-            {isLoading ? <Loader color={"white"} /> : "Upload Listing"}
+            {isLoading ? <Loader color={"white"} /> : "Update Listing"}
           </button>
         </form>
       </div>
@@ -182,4 +183,4 @@ const AddProdPage = ({ onClose }) => {
   );
 };
 
-export default AddProdPage;
+export default UpdateProd;
