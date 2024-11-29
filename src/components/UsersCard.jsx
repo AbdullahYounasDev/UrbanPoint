@@ -1,3 +1,5 @@
+/** @format */
+
 import Link from "next/link";
 
 const UsersCard = ({ id, name, email, photoSrc, createdAt }) => {
@@ -7,7 +9,7 @@ const UsersCard = ({ id, name, email, photoSrc, createdAt }) => {
     date.getMonth() + 1
   }/${date.getFullYear()}`;
   return (
-    <div class="border-sky-1 border-[1px] flex flex-row items-center justify-center bg-[#FFFBFB] rounded-lg shadow-xl w-[400px]">
+    <div class="border-sky-1 border-[1px] flex flex-row items-center justify-center bg-[#FFFBFB] rounded-lg shadow-xl w-[300px]">
       <div class="flex w-full flex-col p-3 gap-3">
         <div class="flex items-center justify-center">
           <img
@@ -38,8 +40,7 @@ const UsersCard = ({ id, name, email, photoSrc, createdAt }) => {
               href={
                 "https://dashboard.clerk.com/apps/app_2nz7CPaY7sHj0N4wLuIg9mnQuL4/instances/ins_2nz7CUJF9KuwoAcbsQqVtvcipY0/users/" +
                 id
-              }
-            >
+              }>
               See More Details
             </Link>
           </button>

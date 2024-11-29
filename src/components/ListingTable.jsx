@@ -21,7 +21,7 @@ const ListingTable = ({ searchResult }) => {
     setIsLoading(true);
     try {
       const response = await axios.get("/api/getallproperties");
-      setProperties(response.data.data);
+      setProperties(response.data.data.reverse());
     } catch (error) {
       setNotification({
         message: "Failed to fetch properties. Please try again later.",
@@ -71,9 +71,8 @@ const ListingTable = ({ searchResult }) => {
 
   return (
     <>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg my-10 mx-4 z-10">
-        {/* Refresh Icon */}
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+      <div className="relative">
+        <table className="w-[90%] lg:absolute text-sm text-left rtl:text-right text-gray-500 shadow-md  my-10 mx-2 z-10">
           <thead className="text-xs text-white uppercase bg-sky-1 font-bold">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -96,7 +95,7 @@ const ListingTable = ({ searchResult }) => {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 flex justify-between flex-wrap items-center">
+                className="px-6 py-3 flex justify-between items-center">
                 Action
                 <FontAwesomeIcon
                   icon={faRefresh}
@@ -111,7 +110,7 @@ const ListingTable = ({ searchResult }) => {
               <tr className="bg-white relative border-b" key={prop._id}>
                 <td
                   scope="row"
-                  className="flex gap-4 px-6 py-4 whitespace-nowrap justify-center items-center">
+                  className="flex gap-4 px-6 py-4 whitespace-nowrap justify-start items-center">
                   <div className="w-[100px] h-[100px]">
                     <img
                       src={prop.image}

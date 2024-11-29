@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -93,12 +95,12 @@ const UsersPage = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="w-[100%] flex flex-row gap-3 p-3 pr-5 lg:flex-nowrap sm:flex-wrap">
-      <div className="w-[60%]">
+    <div className="w-[100%] flex flex-row gap-4 p-3 pr-5 md:flex-nowrap flex-wrap">
+      <div className="md:w-[60%] md:block w-full flex flex-col justify-center items-center">
         <div>
           <h1 className="text-3xl font-bold my-3">Analytics</h1>
         </div>
-        <div className="flex gap-5 flex-wrap mb-5">
+        <div className="flex gap-5 mb-5 md:flex-nowrap flex-wrap justify-center items-center">
           <DashBoardCards
             title={"Total Users"}
             numbers={users.length === 0 ? "0" : users.length}
@@ -112,11 +114,11 @@ const UsersPage = () => {
             width={"250px"}
           />
         </div>
-        <div className="flex gap-5 flex-wrap mb-5">
+        <div className="flex gap-5 mb-5 md:flex-nowrap flex-wrap justify-center items-center">
           <DashBoardCards
             title={"Total Listings"}
             numbers={properties.length === 0 ? "0" : properties.length}
-            type={"All Listed Properties"}
+            type={"All Listings"}
             width={"250px"}
           />
           <DashBoardCards
@@ -128,7 +130,7 @@ const UsersPage = () => {
         </div>
       </div>
 
-      <div className="w-[40%]">
+      <div className="md:w-[40%] md:block w-full flex flex-col justify-start items-center">
         <div>
           <h1 className="text-3xl font-bold my-3">Rescent Messages</h1>
         </div>

@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import Loader from "@/components/Loader";
 import UsersCard from "@/components/UsersCard";
@@ -36,10 +38,12 @@ const page = () => {
   }, [users]);
   if (loading) return <Loader />;
   return (
-    <div className="w-[70%]">
+    <div className="w-[100%]">
       <div>
-        <h1 className="text-3xl font-bold my-3">Our Users</h1>
-        <div className="flex w-100 flex-wrap gap-2 justify-start items-center">
+        <h1 className="text-3xl font-bold my-3 lg:text-start text-center">
+          Our Users
+        </h1>
+        <div className="flex w-100 flex-wrap gap-2 lg:justify-start justify-center items-center">
           {users.map((user) => {
             return (
               <UsersCard

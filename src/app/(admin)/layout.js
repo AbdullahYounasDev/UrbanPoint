@@ -1,3 +1,5 @@
+/** @format */
+
 import AdminHeader from "@/components/AdminHeader";
 import AdminNav from "@/components/AdminNav";
 

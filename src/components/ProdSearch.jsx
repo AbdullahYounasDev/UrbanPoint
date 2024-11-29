@@ -7,7 +7,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const ProdSearch = ({ setSearch, search }) => {
   return (
-    <div className="flex gap-2 border-2 rounded-full justify-between items-center">
+    <div className="flex sm:w-auto w-full gap-2 border-2 rounded-full justify-between items-center mx-3">
       <input
         className="border-0 shadow-none rounded-full outline-none"
         type="text"

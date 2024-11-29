@@ -14,9 +14,9 @@ const page = () => {
   };
   return (
     <div className="w-full">
-      <div className="flex gap-3 w-[95%] justify-end">
+      <div className="flex flex-wrap gap-3 w-full sm:justify-end justify-center ">
         <ProdSearch setSearch={setSearch} search={search} />
-        <button onClick={showAddProd} className="px-3 py-2">
+        <button onClick={showAddProd} className="px-3 py-2 mx-3">
           Add Listings
         </button>
       </div>

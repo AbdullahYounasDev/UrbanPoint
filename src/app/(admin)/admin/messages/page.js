@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import DashBoardCards from "@/components/DashBoardCards";
 import Loader from "@/components/Loader";
@@ -36,7 +38,7 @@ const pages = () => {
   }, [messages]);
   if (loading) return <Loader />;
   return (
-    <div className="w-[70%]">
+    <div className="w-[90%] px-3">
       <div>
         <h1 className="text-3xl font-bold my-3">Rescent Messages</h1>
       </div>
