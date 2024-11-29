@@ -74,8 +74,8 @@ const AddProdPage = ({ onClose }) => {
     }
   };
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
-      <div className="bg-white p-6 rounded shadow-lg relative">
+    <div className="fixed w-[100vw] min-h-[100vh] max-h-[105vh] h-auto inset-0 bg-black bg-opacity-50 flex sm:items-center items-start justify-center z-20">
+      <div className="bg-white p-6 w-auto  rounded shadow-lg relative">
         <div
           onClick={() => onClose()}
           className="text-sky-1 absolute right-2 top-2 cursor-pointer">
@@ -87,8 +87,10 @@ const AddProdPage = ({ onClose }) => {
             <span className="text-sky-1">New Listing</span>
           </h1>
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-          <div className="w-full flex gap-2 ">
+        <form
+          onSubmit={handleSubmit}
+          className="flex sm:w-auto min-w-[300px] flex-col gap-2 sm:justify-start sm:items-start justify-center items-center">
+          <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
             <input
               onChange={handleChange}
               value={data.title}
@@ -106,7 +108,7 @@ const AddProdPage = ({ onClose }) => {
               required
             />
           </div>
-          <div className="w-full flex gap-2 ">
+          <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
             <input
               onChange={handleChange}
               value={data.bathrooms || ""}
@@ -124,7 +126,7 @@ const AddProdPage = ({ onClose }) => {
               required
             />
           </div>
-          <div className="w-full flex gap-2 ">
+          <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
             <input
               name="price"
               type="number"
@@ -146,7 +148,7 @@ const AddProdPage = ({ onClose }) => {
               <option value="Rental">Rental</option>
             </select>
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 w-full">
             <label htmlFor="image" className="font-semibold text-sky-1">
               Upload Image
             </label>
@@ -164,6 +166,7 @@ const AddProdPage = ({ onClose }) => {
             value={data.description}
             name="description"
             placeholder="Enter Description"
+            className="w-full"
             required
           />
           <button type="submit">

@@ -1,6 +1,7 @@
 /** @format */
 
 import {
+  faClose,
   faComment,
   faDashboard,
   faEarth,
@@ -10,11 +11,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
 
-const AdminNav = () => {
+const ResponsiveAdminNav = ({ openNav, setOpenNav }) => {
   return (
-    <nav className="w-[200px] h-full items-center py-10 relative lg:block hidden">
-      <div className="w-185px h-full flex justify-between fixed ">
-        <ul className="px-8 flex flex-col gap-12 bg-white items-start">
+    <nav className="fixed flex items-center h-[100vh] lg:block z-40 left-0 top-0 shadow-lg bg-black bg-opacity-50 w-full">
+      <div className="h-full flex justify-start items-start gap-20 flex-col w-[250px] pl-7 pt-7 bg-white relative">
+        <FontAwesomeIcon
+          icon={faClose}
+          className="text-sky-1 cursor-pointer absolute right-2 top-2"
+          onClick={() => setOpenNav(false)}
+        />
+        <div className="w-[100px]">
+          <img
+            className="w-[100%]"
+            src="https://urbanpoint.modeltheme.com/wp-content/themes/urbanpointwp/images/logourbanpoint.png"
+            alt="logo"
+          />
+        </div>
+        <ul className="flex flex-col gap-7  items-start justify-start">
           <li>
             <Link
               href={"/admin/dashboard"}
@@ -64,10 +77,9 @@ const AdminNav = () => {
             </Link>
           </li>
         </ul>
-        <div className="h-[60%] border-[1px] border-gray-300 rounded-2xl"></div>
       </div>
     </nav>
   );
 };
 
-export default AdminNav;
+export default ResponsiveAdminNav;

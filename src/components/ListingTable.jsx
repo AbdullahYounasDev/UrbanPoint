@@ -71,8 +71,8 @@ const ListingTable = ({ searchResult }) => {
 
   return (
     <>
-      <div className="relative">
-        <table className="w-[90%] lg:absolute text-sm text-left rtl:text-right text-gray-500 shadow-md  my-10 mx-2 z-10">
+      <div className="relative ">
+        <table className="w-[95%] lg:overflow-hidden overflow-x-scroll lg:absolute text-sm text-left rtl:text-right text-gray-500 shadow-md  my-10 mx-2 z-10">
           <thead className="text-xs text-white uppercase bg-sky-1 font-bold">
             <tr>
               <th scope="col" className="px-6 py-3">

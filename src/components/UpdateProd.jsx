@@ -75,7 +75,7 @@ const UpdateProd = ({ onClose, propertyId }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
+    <div className="fixed w-[100%] min-h-[100vh] max-h-[105vh] h-auto inset-0 bg-black bg-opacity-50 flex sm:items-center items-start justify-start sm:justify-center z-20">
       <div className="bg-white p-6 rounded shadow-lg relative">
         <div
           onClick={() => onClose()}
@@ -88,8 +88,10 @@ const UpdateProd = ({ onClose, propertyId }) => {
             <span className="text-sky-1">Listing</span>
           </h1>
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-          <div className="w-full flex gap-2 ">
+        <form
+          onSubmit={handleSubmit}
+          className="flex sm:w-auto min-w-[300px] flex-col gap-2 sm:justify-start sm:items-start justify-center items-center">
+          <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
             <input
               onChange={handleChange}
               value={data.title}
@@ -107,7 +109,7 @@ const UpdateProd = ({ onClose, propertyId }) => {
               required
             />
           </div>
-          <div className="w-full flex gap-2 ">
+          <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
             <input
               onChange={handleChange}
               value={data.bathrooms || ""}
@@ -125,7 +127,7 @@ const UpdateProd = ({ onClose, propertyId }) => {
               required
             />
           </div>
-          <div className="w-full flex gap-2 ">
+          <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
             <input
               name="price"
               type="number"
@@ -147,7 +149,7 @@ const UpdateProd = ({ onClose, propertyId }) => {
               <option value="Rental">Rental</option>
             </select>
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 w-full">
             <label htmlFor="image" className="font-semibold text-sky-1">
               Upload Image
             </label>
@@ -164,6 +166,7 @@ const UpdateProd = ({ onClose, propertyId }) => {
             onChange={handleChange}
             value={data.description}
             name="description"
+            className="w-full"
             placeholder="Enter Description"
             required
           />

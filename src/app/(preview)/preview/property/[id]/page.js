@@ -49,29 +49,29 @@ const PropertyPage = ({ params }) => {
   }
 
   return (
-    <div className=" m-auto w-[80%] ">
-      <div className="w-full h-[100vh] flex gap-3 flex-wrap items-center justify-between">
-        <div className="w-[30%]">
+    <div className=" m-auto sm:w-[80%] w-[100%] p-2">
+      <div className="w-full min-h-[100vh] flex gap-3 items-center justify-between md:flex-row flex-col">
+        <div className="md:w-[30%] w-[100%] ">
           <img
             src={property.image}
             className="w-full h-[400px] object-cover  rounded-md"
           />
         </div>
-        <div className="w-[60%]">
+        <div className="md:w-[60%] w-[100%]">
           <div className="flex flex-col gap-3">
             <h3 className="flex gap-5 font-bold text-sky-1 text-[16px] items-center justify-start">
               <Link href="/property">Property</Link>{" "}
               <span className="text-[20px] text-black">/</span>{" "}
               <Link href={`/preview/property/${id}`}>{property.title}</Link>
             </h3>
-            <h1 className="text-[40px] font-bold text-black">
+            <h1 className="sm:text-[40px] text-[28px]  font-bold text-black">
               {property.title}
             </h1>
-            <h1 className="text-[24px] font-bold text-sky-1">
+            <h1 className="sm:text-[24px] text-[20px] font-bold text-sky-1">
               {property.propertyType}
             </h1>
             <p className="text-[20px] text-black">{property.description}</p>
-            <h1 className="text-[32px] font-bold text-black">
+            <h1 className="sm:text-[32px] text-[25px] font-bold text-black">
               {property.price}.00 Rs
             </h1>
           </div>
@@ -84,12 +84,12 @@ const PropertyPage = ({ params }) => {
       </div>
       <div className="mb-10 flex gap-10 flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center ">
-          <h2 className="text-[35px] font-bold text-black text-center mb-3">
+          <h2 className="sm:text-[35px] text-[28px] font-bold text-black text-center mb-3">
             Explore Features That Inspires
           </h2>
           <div className="w-[200px] p-[2px] bg-sky-1"></div>
         </div>
-        <div className="w-full flex gap-3">
+        <div className="w-full flex gap-3 md:flex-nowrap flex-wrap md:justify-start md:items-start justify-center items-center">
           <div className="w-[400px] border-2 flex flex-col p-5 justify-start gap-2">
             <div>
               <FontAwesomeIcon className="text-2xl text-sky-1" icon={faBed} />
