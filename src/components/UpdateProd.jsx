@@ -75,113 +75,115 @@ const UpdateProd = ({ onClose, propertyId }) => {
   };
 
   return (
-    <div className="fixed w-[100%] min-h-[100vh] max-h-[105vh] h-auto inset-0 bg-black bg-opacity-50 flex sm:items-center items-start justify-start sm:justify-center z-20">
-      <div className="bg-white p-6 rounded shadow-lg relative">
-        <div
-          onClick={() => onClose()}
-          className="text-sky-1 absolute right-2 top-2 cursor-pointer">
-          <FontAwesomeIcon icon={faClose} />
+    <div className="fixed w-[100%] min-h-[100vh] max-h-[105vh] h-auto inset-0 bg-black bg-opacity-50 flex sm:items-center items-start justify-end sm:justify-center z-20 ">
+      <div className="sm:w-auto w-[100vw]">
+        <div className="bg-white p-6 rounded shadow-lg relative">
+          <div
+            onClick={() => onClose()}
+            className="text-sky-1 absolute right-2 top-2 cursor-pointer">
+            <FontAwesomeIcon icon={faClose} />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold my-3">
+              Let'<span className="text-sky-1">s</span> Update Your{" "}
+              <span className="text-sky-1">Listing</span>
+            </h1>
+          </div>
+          <form
+            onSubmit={handleSubmit}
+            className="flex sm:w-auto min-w-[300px] flex-col gap-2 sm:justify-start sm:items-start justify-center items-center">
+            <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
+              <input
+                onChange={handleChange}
+                value={data.title}
+                name="title"
+                type="text"
+                placeholder="Enter Title"
+                required
+              />
+              <input
+                onChange={handleChange}
+                value={data.bedrooms || ""}
+                name="bedrooms"
+                type="number"
+                placeholder="Number of Bedrooms"
+                required
+              />
+            </div>
+            <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
+              <input
+                onChange={handleChange}
+                value={data.bathrooms || ""}
+                name="bathrooms"
+                type="number"
+                placeholder="Number of Bathrooms"
+                required
+              />
+              <input
+                name="address"
+                type="text"
+                placeholder="Address"
+                onChange={handleChange}
+                value={data.address}
+                required
+              />
+            </div>
+            <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
+              <input
+                name="price"
+                type="number"
+                placeholder="Price"
+                onChange={handleChange}
+                value={data.price || ""}
+                required
+              />
+              <select
+                name="propertyType"
+                id="propertyType"
+                onChange={handleChange}
+                value={data.propertyType || ""}
+                required>
+                <option value="" disabled>
+                  Property Type
+                </option>
+                <option value="Selling">Selling</option>
+                <option value="Rental">Rental</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-1 w-full">
+              <label htmlFor="image" className="font-semibold text-sky-1">
+                Upload Image
+              </label>
+              <input
+                name="image"
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={handleChangeInImage}
+                required
+              />
+            </div>
+            <textarea
+              onChange={handleChange}
+              value={data.description}
+              name="description"
+              className="w-full"
+              placeholder="Enter Description"
+              required
+            />
+            <button type="submit">
+              {isLoading ? <Loader color={"white"} /> : "Update Listing"}
+            </button>
+          </form>
         </div>
-        <div>
-          <h1 className="text-3xl font-bold my-3">
-            Let'<span className="text-sky-1">s</span> Update Your{" "}
-            <span className="text-sky-1">Listing</span>
-          </h1>
-        </div>
-        <form
-          onSubmit={handleSubmit}
-          className="flex sm:w-auto min-w-[300px] flex-col gap-2 sm:justify-start sm:items-start justify-center items-center">
-          <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
-            <input
-              onChange={handleChange}
-              value={data.title}
-              name="title"
-              type="text"
-              placeholder="Enter Title"
-              required
-            />
-            <input
-              onChange={handleChange}
-              value={data.bedrooms || ""}
-              name="bedrooms"
-              type="number"
-              placeholder="Number of Bedrooms"
-              required
-            />
-          </div>
-          <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
-            <input
-              onChange={handleChange}
-              value={data.bathrooms || ""}
-              name="bathrooms"
-              type="number"
-              placeholder="Number of Bathrooms"
-              required
-            />
-            <input
-              name="address"
-              type="text"
-              placeholder="Address"
-              onChange={handleChange}
-              value={data.address}
-              required
-            />
-          </div>
-          <div className="w-full flex sm:flex-nowrap flex-wrap gap-2 ">
-            <input
-              name="price"
-              type="number"
-              placeholder="Price"
-              onChange={handleChange}
-              value={data.price || ""}
-              required
-            />
-            <select
-              name="propertyType"
-              id="propertyType"
-              onChange={handleChange}
-              value={data.propertyType || ""}
-              required>
-              <option value="" disabled>
-                Property Type
-              </option>
-              <option value="Selling">Selling</option>
-              <option value="Rental">Rental</option>
-            </select>
-          </div>
-          <div className="flex flex-col gap-1 w-full">
-            <label htmlFor="image" className="font-semibold text-sky-1">
-              Upload Image
-            </label>
-            <input
-              name="image"
-              id="image"
-              type="file"
-              accept="image/*"
-              onChange={handleChangeInImage}
-              required
-            />
-          </div>
-          <textarea
-            onChange={handleChange}
-            value={data.description}
-            name="description"
-            className="w-full"
-            placeholder="Enter Description"
-            required
+        {notification.message && (
+          <Notification
+            message={notification.message}
+            type={notification.type}
+            onClose={() => setNotification({ message: "", type: "" })}
           />
-          <button type="submit">
-            {isLoading ? <Loader color={"white"} /> : "Update Listing"}
-          </button>
-        </form>
+        )}
       </div>
-      {notification.message && (
-        <Notification
-          message={notification.message}
-          type={notification.type}
-          onClose={() => setNotification({ message: "", type: "" })}
-        />
-      )}
     </div>
   );
 };

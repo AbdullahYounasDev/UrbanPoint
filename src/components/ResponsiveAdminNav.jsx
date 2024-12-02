@@ -13,8 +13,8 @@ import React from "react";
 
 const ResponsiveAdminNav = ({ openNav, setOpenNav }) => {
   return (
-    <nav className="fixed flex items-center min-h-[100vh] lg:block z-40 left-0 top-0 shadow-lg bg-black bg-opacity-50 w-full">
-      <div className="h-full flex justify-start items-start gap-20 flex-col w-[250px] pl-7 pt-7 bg-white relative">
+    <nav className="fixed flex items-center  lg:block z-40 left-0 top-0 shadow-lg bg-black bg-opacity-50 w-full">
+      <div className="min-h-[100vh] flex justify-start items-start gap-20 flex-col w-[250px] pl-7 pt-7 bg-white relative">
         <FontAwesomeIcon
           icon={faClose}
           className="text-sky-1 cursor-pointer absolute right-2 top-2"
