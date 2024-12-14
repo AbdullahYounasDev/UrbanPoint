@@ -1,3 +1,5 @@
+/** @format */
+
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,16 +20,16 @@ const Header = async () => {
         </div>
         <ul className="flex gap-10 font-bold">
           <li>
-            <Link href="#image">Home</Link>
+            <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="#listing">Listing</Link>
+            <Link href="http://localhost:3000/#listing">Listing</Link>
           </li>
           <li>
-            <Link href="/about.html">About</Link>
+            <Link href="/about">About</Link>
           </li>
           <li>
-            <Link href="#contact">Contact</Link>
+            <Link href="http://localhost:3000/#contact">Contact</Link>
           </li>
         </ul>
         <div>

@@ -10,7 +10,6 @@ import Notification from "@/components/Notification";
 
 const UsersPage = () => {
   const [notification, setNotification] = useState({ message: "", type: "" });
-
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const [properties, setProperties] = useState([]);

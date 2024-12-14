@@ -47,7 +47,7 @@ const PropertyPage = ({ params }) => {
 
   return (
     <div className=" m-auto sm:w-[80%] w-[100%] p-2">
-      <div className="w-full min-h-[100vh] flex gap-3 items-center justify-between md:flex-row flex-col">
+      <div className="w-full min-h-[90vh] flex gap-3 items-center justify-between md:flex-row flex-col">
         <div className="md:w-[30%] w-[100%] ">
           <img
             src={property.image}
