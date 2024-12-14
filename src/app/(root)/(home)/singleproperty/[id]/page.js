@@ -12,6 +12,7 @@ const PropertyPage = ({ params }) => {
   const [show, setShow] = useState(false);
   const { id } = params;
   const [loading, setLoading] = useState();
+  const [isTransaction, setIsTransaction] = useState(false);
   const [property, setProperty] = useState();
 
   useEffect(() => {
@@ -73,11 +74,22 @@ const PropertyPage = ({ params }) => {
             </h1>
           </div>
           <div className="my-7">
-            <button
-              className="p-4 text-[1.25rem] w-[150px] py-4 h-[50px]"
-              onClick={() => setShow(true)}>
-              Buy Now
-            </button>
+            {!isTransaction && (
+              <button
+                className="p-4 text-[1.25rem] w-[150px] py-4 h-[50px]"
+                onClick={() => setShow(true)}
+              >
+                {property.status === "Available" ? "Buy Now" : "Sold"}
+              </button>
+            )}
+            {isTransaction && (
+              <button
+                className="p-4 text-[1.25rem] w-[150px] py-4 h-[50px]"
+                disabled
+              >
+                Sold
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -132,8 +144,13 @@ const PropertyPage = ({ params }) => {
           </div>
         </div>
       </div>
-      {show && (
-        <Transaction onClose={() => setShow(false)} price={property.price} />
+      {property.status === "Available" && show && (
+        <Transaction
+          onClose={() => setShow(false)}
+          price={property.price}
+          id={property._id}
+          setIsTransaction={setIsTransaction}
+        />
       )}
     </div>
   );

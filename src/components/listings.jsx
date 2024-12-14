@@ -52,29 +52,31 @@ const Listings = () => {
           {isLoading ? (
             <Loader />
           ) : (
-            properties.map((prop) => (
-              <Link href={`/singleproperty/${prop._id}`} key={prop._id}>
-                <div className="list">
-                  <div className="shine"></div>
-                  <img
-                    src={prop.image}
-                    alt={prop}
-                    style={{ width: "350px", height: "250px" }}
-                    className="object-cover rounded-md"
-                  />
-                  <div className="flex flex-col gap-1 mt-3">
-                    <div className="list_class flex justify-between items-center font-light">
-                      <h3>{prop.title}</h3>
-                      <p>{prop.propertyType}</p>
-                    </div>
-                    <div className="list_class flex justify-between items-center font-light">
-                      <h3>{prop.bathrooms} bathrooms</h3>
-                      <p>{prop.price} -/RS</p>
+            properties
+              .filter((props) => props.status === "Available")
+              .map((prop) => (
+                <Link href={`/singleproperty/${prop._id}`} key={prop._id}>
+                  <div className="list">
+                    <div className="shine"></div>
+                    <img
+                      src={prop.image}
+                      alt={prop}
+                      style={{ width: "350px", height: "250px" }}
+                      className="object-cover rounded-md"
+                    />
+                    <div className="flex flex-col gap-1 mt-3">
+                      <div className="list_class flex justify-between items-center font-light">
+                        <h3>{prop.title}</h3>
+                        <p>{prop.propertyType}</p>
+                      </div>
+                      <div className="list_class flex justify-between items-center font-light">
+                        <h3>{prop.bathrooms} bathrooms</h3>
+                        <p>{prop.price} -/RS</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))
+                </Link>
+              ))
           )}
         </div>
       </div>

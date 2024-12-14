@@ -90,6 +90,7 @@ const UsersPage = () => {
 
   // Sold Listings
   const soldProps = properties.filter((prop) => prop.status == "Sold");
+  const availProps = properties.filter((prop) => prop.status == "Available");
 
   if (loading) return <Loader />;
 
@@ -115,9 +116,9 @@ const UsersPage = () => {
         </div>
         <div className="flex gap-5 mb-5 md:flex-nowrap flex-wrap justify-center items-center">
           <DashBoardCards
-            title={"Total Listings"}
-            numbers={properties.length === 0 ? "0" : properties.length}
-            type={"All Listings"}
+            title={"Available Listings"}
+            numbers={properties.length === 0 ? "0" : availProps.length}
+            type={"Available Listings"}
             width={"250px"}
           />
           <DashBoardCards
