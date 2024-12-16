@@ -1,7 +1,12 @@
+import TransactionTable from "@/components/TransactionTable";
 import React from "react";
 
 const page = () => {
-  return <div>page</div>;
+  return (
+    <>
+      <TransactionTable />
+    </>
+  );
 };
 
 export default page;

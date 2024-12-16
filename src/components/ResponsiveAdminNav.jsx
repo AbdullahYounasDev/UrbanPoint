@@ -5,6 +5,7 @@ import {
   faComment,
   faDashboard,
   faEarth,
+  faMoneyBill1Wave,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,7 +32,8 @@ const ResponsiveAdminNav = ({ openNav, setOpenNav }) => {
           <li>
             <Link
               href={"/admin/dashboard"}
-              className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all ">
+              className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all "
+            >
               {" "}
               <FontAwesomeIcon
                 className="w-[20px] text-sky-1"
@@ -43,7 +45,8 @@ const ResponsiveAdminNav = ({ openNav, setOpenNav }) => {
           <li>
             <Link
               href={"/admin/listings"}
-              className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all">
+              className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all"
+            >
               {" "}
               <FontAwesomeIcon
                 className="w-[20px] text-sky-1"
@@ -55,7 +58,8 @@ const ResponsiveAdminNav = ({ openNav, setOpenNav }) => {
           <li>
             <Link
               href={"/admin/users"}
-              className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all">
+              className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all"
+            >
               {" "}
               <FontAwesomeIcon
                 className="w-[20px] text-sky-1"
@@ -66,8 +70,22 @@ const ResponsiveAdminNav = ({ openNav, setOpenNav }) => {
           </li>
           <li>
             <Link
+              href={"/admin/transaction"}
+              className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all"
+            >
+              {" "}
+              <FontAwesomeIcon
+                className="w-[20px] text-sky-1"
+                icon={faMoneyBill1Wave}
+              />{" "}
+              Transaction
+            </Link>
+          </li>
+          <li>
+            <Link
               href={"/admin/messages"}
-              className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all">
+              className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all"
+            >
               {" "}
               <FontAwesomeIcon
                 className="w-[20px] text-sky-1"

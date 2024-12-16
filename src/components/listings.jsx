@@ -80,6 +80,13 @@ const Listings = () => {
           )}
         </div>
       </div>
+      {notification.message && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification({ message: "", type: "" })}
+        />
+      )}
     </div>
   );
 };
