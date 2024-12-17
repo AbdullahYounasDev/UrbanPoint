@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import { useAuth } from "@clerk/nextjs";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
@@ -25,8 +27,8 @@ const Transaction = ({ onClose, price, id, setIsTransaction }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     if (isSignedIn) {
+      setIsLoading(true);
       try {
         const response = await axios.post(
           "http://localhost:3000/api/createtransaction",
@@ -65,8 +67,7 @@ const Transaction = ({ onClose, price, id, setIsTransaction }) => {
             <div className="col-span-2 sm:col-span-1">
               <label
                 for="accountNumber"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
+                className="block text-sm font-medium text-gray-700 mb-2">
                 Card Number
               </label>
               <input
@@ -82,8 +83,7 @@ const Transaction = ({ onClose, price, id, setIsTransaction }) => {
             <div className="col-span-2 sm:col-span-1">
               <label
                 for="amount"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
+                className="block text-sm font-medium text-gray-700 mb-2">
                 Amount
               </label>
               <input
@@ -98,8 +98,7 @@ const Transaction = ({ onClose, price, id, setIsTransaction }) => {
             <div className="col-span-2 sm:col-span-1">
               <label
                 for="cvv"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
+                className="block text-sm font-medium text-gray-700 mb-2">
                 CVV
               </label>
               <input
@@ -115,8 +114,7 @@ const Transaction = ({ onClose, price, id, setIsTransaction }) => {
             <div className="col-span-2 sm:col-span-1">
               <label
                 for="cardHolder"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
+                className="block text-sm font-medium text-gray-700 mb-2">
                 Card Number
               </label>
               <input

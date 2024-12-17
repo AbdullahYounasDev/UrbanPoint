@@ -1,3 +1,5 @@
+/** @format */
+
 import Property from "@/models/property.model";
 import Transaction from "@/models/transaction.model";
 import { connect } from "@/utils/dbConnect";
@@ -5,7 +7,6 @@ import { NextResponse } from "next/server";
 connect();
 export const GET = async (request) => {
   try {
-    console.log("first");
     const transactions = await Transaction.find();
 
     if (!transactions || transactions.length === 0) {

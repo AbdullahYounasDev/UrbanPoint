@@ -1,13 +1,16 @@
+/** @format */
+
 "use client";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Loader from "./Loader";
 import {
-  faArrowDownAZ,
   faArrowRightArrowLeft,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Notification from "./Notification";
+import ProdSearch from "./ProdSearch";
 
 const TransactionTable = () => {
   const [transaction, setTransaction] = useState([]);
@@ -15,6 +18,7 @@ const TransactionTable = () => {
   const [properties, setProperties] = useState([]);
   const [notification, setNotification] = useState({ message: "", type: "" });
   const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState("");
 
   const fetchTransactions = async () => {
     setLoading(true);
@@ -65,102 +69,95 @@ const TransactionTable = () => {
     fetchUsers();
   }, []);
 
+  const filteredTrans =
+    search.length > 1
+      ? transaction.filter(
+          (trans) =>
+            trans.cardHolder.toLowerCase().includes(search.toLowerCase()) ||
+            trans.amount.toString().includes(search.toString()),
+        )
+      : transaction;
+
   if (isLoading) return <Loader />;
   return (
-    <div className="mt-6 overflow-hidden w-full rounded-xl border shadow">
-      <table className="min-w-full border-separate border-spacing-y-2 border-spacing-x-2">
-        <thead className="hidden border-b lg:table-header-group">
-          <tr className="">
-            <td
-              width="50%"
-              className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6"
-            >
-              Invoice
-            </td>
-
-            <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-              Date
-            </td>
-
-            <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-              Amount
-            </td>
-
-            <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-              Status
-            </td>
-          </tr>
-        </thead>
-
-        <tbody className="lg:border-gray-300">
-          {transaction.map((trans) => (
-            <tr className="" key={trans._id}>
-              <td width="50%" className="flex gap-7 items-center justify-start">
-                <div className="flex justify-start items-start flex-col">
-                  <div className="w-[75px] h-[75px] sm:mx-6">
-                    <img
-                      src={users.find((user) => user._id == trans.buyer)?.photo}
-                      alt={
-                        users.find((user) => user._id == trans.buyer)?.clerkName
-                      }
-                      className="object-cover w-full h-full rounded-full border"
-                    />
-                  </div>
-                  <div className="w-[115px] whitespace-no-wrap py-4 text-[10px] font-bold text-gray-900 sm:pl-6">
-                    {users.find((user) => user._id == trans.buyer)?.clerkName}
-                  </div>
+    <div>
+      <div className="flex justify-between items-center flex-wrap gap-3">
+        <h1 className="text-[30px] font-bold">Transactions:</h1>
+        <ProdSearch search={search} setSearch={setSearch} />
+      </div>
+      <div className="w-full flex gap-4 flex-wrap md:justify-start justify-center items-center">
+        {filteredTrans.map((trans) => (
+          <div className="flex flex-col border p-3 mt-2 pt-4 gap-4">
+            <div className="flex justify-center items-center">
+              <div className="flex justify-start items-start flex-col">
+                <div className="w-[75px] h-[75px] sm:mx-6">
+                  <img
+                    src={users.find((user) => user._id == trans.buyer)?.photo}
+                    alt={
+                      users.find((user) => user._id == trans.buyer)?.clerkName
+                    }
+                    className="object-cover w-full h-full rounded-full border"
+                  />
                 </div>
-                <div>
-                  <FontAwesomeIcon icon={faArrowRightArrowLeft} />
+                <div className="w-[115px]  py-4 text-[10px] font-bold text-gray-900 sm:pl-6">
+                  {users.find((user) => user._id == trans.buyer)?.clerkName}
                 </div>
-                <div className="flex justify-center items-center flex-col">
-                  <div className="w-[75px] h-[75px] sm:mx-6">
-                    <img
-                      src={
-                        properties.find((prop) => prop._id == trans.property)
-                          ?.image
-                      }
-                      alt={
-                        properties.find((prop) => prop._id == trans.property)
-                          ?.title
-                      }
-                      className="object-cover w-full h-full rounded-full border"
-                    />
-                  </div>
-                  <div className="min-w-[115px] w-auto whitespace-no-wrap py-4 text-[10px] font-bold text-gray-900 text-center">
-                    {
+              </div>
+              <div>
+                <FontAwesomeIcon icon={faArrowRightArrowLeft} />
+              </div>
+              <div className="flex justify-center items-center flex-col">
+                <div className="w-[75px] h-[75px] sm:mx-6">
+                  <img
+                    src={
+                      properties.find((prop) => prop._id == trans.property)
+                        ?.image
+                    }
+                    alt={
                       properties.find((prop) => prop._id == trans.property)
                         ?.title
                     }
-                  </div>
+                    className="object-cover w-full h-full rounded-full border"
+                  />
                 </div>
-              </td>
-
-              <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                07 February, 2022
-              </td>
-
-              <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
-                $59.00
-                <div className="flex mt-1 ml-auto w-fit items-center rounded-full bg-blue-600 py-2 px-3 text-left text-xs font-medium text-white lg:hidden">
-                  Complete
+                <div className="min-w-[115px] w-auto  py-4 text-[10px] font-bold text-gray-900 text-center">
+                  {properties.find((prop) => prop._id == trans.property)?.title}
                 </div>
-              </td>
-
-              <button className="text-red-500 font-bold bg-white px-4 py-2 rounded">
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {notification.message && (
-        <Notification
-          message={notification.message}
-          type={notification.type}
-          onClose={() => setNotification({ message: "", type: "" })}
-        />
-      )}
+              </div>
+            </div>
+            <div className="w-[80%] border-b self-center"></div>
+            <div>
+              <ul class="space-x-4 flex flex-row justify-center w-full mb-4">
+                <li class="text-sm text-gray-800">
+                  <strong class="text-gray-900">Amount : </strong>{" "}
+                  {trans.amount}
+                </li>
+                <li class="text-sm text-gray-800">
+                  <strong class="text-gray-900">Date : </strong>{" "}
+                  {trans.createdAt.split("T")[0]}
+                </li>
+              </ul>
+              <ul class="space-x-4 flex flex-row justify-center w-full mb-4">
+                <li class="text-sm text-gray-800">
+                  <strong class="text-gray-900">Card Holder : </strong>{" "}
+                  {trans.cardHolder.slice(0, 6)} ...
+                </li>
+                <li class="text-sm text-gray-800">
+                  <strong class="text-gray-900">Account No. : </strong>{" "}
+                  {trans.accountNumber.slice(0, 6)} ...
+                </li>
+              </ul>
+            </div>
+          </div>
+        ))}
+        {notification.message && (
+          <Notification
+            message={notification.message}
+            type={notification.type}
+            onClose={() => setNotification({ message: "", type: "" })}
+          />
+        )}
+      </div>
     </div>
   );
 };
