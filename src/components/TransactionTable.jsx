@@ -29,7 +29,7 @@ const TransactionTable = () => {
       setTransaction(resposne.data.data.reverse());
     } catch (error) {
       setNotification({
-        message: "Failed to fetch properties. Please try again later.",
+        message: "Failed to fetch Transactions. Please try again later.",
         type: "error",
       });
     } finally {

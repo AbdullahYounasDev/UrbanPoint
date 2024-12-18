@@ -25,6 +25,11 @@ const Header = async () => {
           <li>
             <Link href="http://localhost:3000/#listing">Listing</Link>
           </li>
+          {user ? (
+            <li>
+              <Link href="/user/transaction">Transactions</Link>
+            </li>
+          ) : null}
           <li>
             <Link href="/about">About</Link>
           </li>

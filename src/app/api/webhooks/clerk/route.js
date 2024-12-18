@@ -1,3 +1,5 @@
+/** @format */
+
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
@@ -83,8 +85,6 @@ export async function POST(req) {
 
     return NextResponse.json({ message: "New User Created", user: newUser });
   }
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log("Webhook body:", body);
 
   return new Response("", { status: 200 });
 }
