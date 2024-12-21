@@ -57,7 +57,7 @@ const PropertyPage = ({ params }) => {
         <div className="md:w-[60%] w-[100%]">
           <div className="flex flex-col gap-3">
             <h3 className="flex gap-5 font-bold text-sky-1 text-[16px] items-center justify-start">
-              <Link href="/property">Property</Link>{" "}
+              <Link href="http://localhost:3000/#listing">Property</Link>{" "}
               <span className="text-[20px] text-black">/</span>{" "}
               <Link href={`/preview/property/${id}`}>{property.title}</Link>
             </h3>

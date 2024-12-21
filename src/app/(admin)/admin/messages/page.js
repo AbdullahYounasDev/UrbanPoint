@@ -4,10 +4,28 @@
 import DashBoardCards from "@/components/DashBoardCards";
 import Loader from "@/components/Loader";
 import Notification from "@/components/Notification";
+import { useUser } from "@clerk/nextjs";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const pages = () => {
+  const { isSignedIn, user } = useUser();
+  const router = useRouter();
+  if (!user) {
+    return <Loader />;
+  }
+
+  useEffect(() => {
+    if (
+      !isSignedIn ||
+      !user?.emailAddresses?.[0]?.emailAddress ||
+      user.emailAddresses[0].emailAddress !==
+        process.env.NEXT_PUBLIC_ADMIN_EMAIL
+    ) {
+      router.push("/");
+    }
+  }, [isSignedIn, user, router]);
   const [notification, setNotification] = useState({ message: "", type: "" });
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -11,8 +11,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Notification from "./Notification";
 import ProdSearch from "./ProdSearch";
+import TransDetails from "./TransDetails";
 
 const TransactionTable = () => {
+  const [activeTransaction, setActiveTransaction] = useState(null);
   const [transaction, setTransaction] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [properties, setProperties] = useState([]);
@@ -148,6 +150,20 @@ const TransactionTable = () => {
                 </li>
               </ul>
             </div>
+            <div className="w-[80%] border-b self-center"></div>
+            <button
+              className="p-4 text-[14px] w-full py-4 h-[30px]"
+              onClick={() => setActiveTransaction(trans)}>
+              Show More Details
+            </button>
+            {activeTransaction && activeTransaction._id === trans._id && (
+              <TransDetails
+                currentUser={users.find((user) => user._id == trans.buyer)}
+                properties={properties}
+                transaction={activeTransaction}
+                onClose={() => setActiveTransaction(null)}
+              />
+            )}
           </div>
         ))}
         {notification.message && (
