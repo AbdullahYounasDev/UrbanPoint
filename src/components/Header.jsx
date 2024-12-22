@@ -5,6 +5,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import UserNavIcon from "./UserNavIcon";
 
 const Header = async () => {
   const user = await currentUser();
@@ -18,7 +19,7 @@ const Header = async () => {
             alt="logo"
           />
         </div>
-        <ul className="flex gap-10 font-bold">
+        <ul className=" gap-10 font-bold md:flex hidden">
           <li>
             <Link href="/">Home</Link>
           </li>
@@ -37,7 +38,8 @@ const Header = async () => {
             <Link href="http://localhost:3000/#contact">Contact</Link>
           </li>
         </ul>
-        <div>
+        <div className="flex gap-3 items-center">
+          <UserNavIcon />
           {user ? (
             <SignedIn>
               <UserButton />

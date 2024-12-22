@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -68,9 +70,9 @@ const Contact = () => {
     }
   };
   return (
-    <div className="w-[80%] m-auto my-10 bg-white" id="contact">
-      <div className="flex justify-between gap-10">
-        <div className="w-[50%]">
+    <div className="md:w-[80%] w-full px-1 m-auto my-10 bg-white" id="contact">
+      <div className="flex flex-wrap lg:flex-nowrap items-center justify-between gap-10">
+        <div className="lg:w-[50%] w-full">
           <h1 className="text-[50px] font-bold ">Get in Touch</h1>
           <p className="text-[#8b8b8a] font-extralight">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
@@ -81,7 +83,7 @@ const Contact = () => {
             eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
             qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
           </p>
-          <div className="flex justify-between w-[500px] mt-5">
+          <div className="flex justify-between flex-wrap lg:w-full sm:w-[70%] w-full mt-5">
             <div className="text-black font-extralight flex gap-2 justify-center items-center">
               <FontAwesomeIcon
                 className="w-[40px] text-[#009DDE]"
@@ -97,7 +99,7 @@ const Contact = () => {
               Office@example.com
             </div>
           </div>
-          <div className="flex justify-between  w-[500px] mt-5">
+          <div className="flex justify-between flex-wrap lg:w-full sm:w-[70%] w-full mt-5">
             <div className="text-black font-extralight flex gap-2 justify-center items-center">
               <FontAwesomeIcon
                 className="w-[40px] text-[#009DDE]"
@@ -115,10 +117,10 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="w-[50%]">
+        <div className="lg:w-[50%] w-full">
           <form>
             <div className="row">
-              <div className="column flex flex-col gap-2">
+              <div className="column flex flex-col gap-2 lg:w-[250px] w-[50%]">
                 <label className="font-bold">First Name</label>
                 <input
                   type="text"
@@ -129,7 +131,7 @@ const Contact = () => {
                   required
                 />
               </div>
-              <div className="column flex flex-col gap-2">
+              <div className="flex flex-col gap-2 lg:w-[250px] w-[50%]">
                 <label className="font-bold">Last Name</label>
                 <input
                   type="text"
@@ -142,7 +144,7 @@ const Contact = () => {
               </div>
             </div>
             <div className="row">
-              <div className="column flex flex-col gap-2">
+              <div className="flex flex-col gap-2 lg:w-[250px] w-[50%]">
                 <label className="font-bold">Phone Number</label>
                 <input
                   type="number"
@@ -153,7 +155,7 @@ const Contact = () => {
                   required
                 />
               </div>
-              <div className="column flex flex-col gap-2">
+              <div className="flex flex-col gap-2 lg:w-[250px] w-[50%]">
                 <label className="font-bold">Subject</label>
                 <input
                   type="text"
@@ -165,22 +167,19 @@ const Contact = () => {
                 />
               </div>
             </div>
-            <div className="fullWidth flex flex-col gap-2">
+            <div className="w-full flex flex-col gap-2">
               <label className="font-bold mb-3">Your Message</label>
               <textarea
-                rows="5"
-                className="textarea"
+                className="textarea w-full"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                required
-              ></textarea>
+                required></textarea>
             </div>
             <button
               onClick={handleSubmit}
               type="submit"
-              className="mt-3 bg-[#0775AC] form-btn"
-            >
+              className="mt-3 bg-[#0775AC] w-full form-btn">
               {isLoading ? "Submitting..." : "Submit"}
             </button>
           </form>
