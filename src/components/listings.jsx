@@ -7,16 +7,24 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Loader from "./Loader";
 import Notification from "./Notification";
+import ListingFilters from "./listingFilters";
+import ProdSearch from "./ProdSearch";
 
 const Listings = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [properties, setProperties] = useState([]);
+  const [filteredProperties, setFilteredProperties] = useState([]);
   const [notification, setNotification] = useState({ message: "", type: "" });
+  const [selectedCities, setSelectedCities] = useState([]);
+  const [search, setSearch] = useState("");
+
   const fetchProperties = async () => {
     setIsLoading(true);
     try {
       const response = await axios.get("/api/getallproperties");
-      setProperties(response.data.data.reverse());
+      const data = response.data.data.reverse();
+      setProperties(data);
+      setFilteredProperties(data); // Initially, show all properties
     } catch (error) {
       setNotification({
         message: "Failed to fetch properties. Please try again later.",
@@ -30,11 +38,40 @@ const Listings = () => {
   useEffect(() => {
     fetchProperties();
   }, []);
+
+  // Filter properties when selected cities change
+  useEffect(() => {
+    if (selectedCities.length === 0) {
+      setFilteredProperties(properties); // Show all properties if no filter applied
+    } else {
+      setFilteredProperties(
+        properties.filter((prop) =>
+          selectedCities.some((city) =>
+            prop.address.toLowerCase().includes(city.toLowerCase()),
+          ),
+        ),
+      );
+    }
+  }, [selectedCities, properties]);
+
+  // Filter properties when search query changes
+  useEffect(() => {
+    if (search.trim() === "") {
+      setFilteredProperties(properties); // Show all properties if no search query
+    } else {
+      setFilteredProperties(
+        properties.filter((prop) =>
+          prop.title.toLowerCase().includes(search.toLowerCase()),
+        ),
+      );
+    }
+  }, [search, properties]);
+
   return (
     <div>
       <div id="listing" className="flex gap-5 flex-col">
         <h1 className="text-[36px] font-bold">Properties For Rent</h1>
-        <div className=" gap-4 justify-center items-center hidden sm:flex">
+        <div className="gap-4 justify-center items-center hidden sm:flex">
           <div className="w-[200px] h-[0.6px] bg-[#E3E6E9]"></div>
           <FontAwesomeIcon
             icon={faLocation}
@@ -43,17 +80,21 @@ const Listings = () => {
           <div className="w-[200px] h-[0.6px] bg-[#E3E6E9]"></div>
         </div>
         <div className="para_div text-wrap w-full md:w-[700px]">
-          <p className="text-center text-[#8b8b8a] font-[16px] font-extralight">
+          <p className="text-center text-[#8b8b8a] font-[16px]">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde
             velit, debitis, vel ullam veniam neque praesentium, sapiente modi
             saepe expedita.
           </p>
         </div>
+        <div className="flex flex-wrap gap-3">
+          <ProdSearch search={search} setSearch={setSearch} />
+          <ListingFilters setSelectedCities={setSelectedCities} />
+        </div>
         <div id="listing_div">
           {isLoading ? (
             <Loader />
           ) : (
-            properties
+            filteredProperties
               .filter((props) => props.status === "Available")
               .map((prop) => (
                 <Link href={`/singleproperty/${prop._id}`} key={prop._id}>
