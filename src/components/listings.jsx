@@ -69,7 +69,7 @@ const Listings = () => {
 
   return (
     <div>
-      <div id="listing" className="flex gap-5 flex-col">
+      <div id="listing" className="flex gap-5 flex-col my-20">
         <h1 className="text-[36px] font-bold">Properties For Rent</h1>
         <div className="gap-4 justify-center items-center hidden sm:flex">
           <div className="w-[200px] h-[0.6px] bg-[#E3E6E9]"></div>

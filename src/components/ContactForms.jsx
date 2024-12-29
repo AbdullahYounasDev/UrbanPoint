@@ -71,7 +71,7 @@ const Contact = () => {
   };
   return (
     <div className="md:w-[80%] w-full px-1 m-auto my-10 bg-white" id="contact">
-      <div className="flex flex-wrap lg:flex-nowrap items-center justify-between gap-10">
+      <div className="flex flex-wrap lg:flex-nowrap items-center justify-between gap-10 my-20">
         <div className="lg:w-[50%] w-full">
           <h1 className="text-[50px] font-bold ">Get in Touch</h1>
           <p className="text-[#8b8b8a] font-extralight">
@@ -179,7 +179,7 @@ const Contact = () => {
             <button
               onClick={handleSubmit}
               type="submit"
-              className="mt-3 bg-[#0775AC] w-full form-btn">
+              className="mt-3 bg-sky-1 w-full form-btn">
               {isLoading ? "Submitting..." : "Submit"}
             </button>
           </form>

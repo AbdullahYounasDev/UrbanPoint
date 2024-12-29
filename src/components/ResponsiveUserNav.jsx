@@ -46,7 +46,7 @@ const ResponsiveUserNav = ({ openNav, setOpenNav }) => {
 
           <li>
             <Link
-              href={"/about"}
+              href={"/#about"}
               className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all">
               About
             </Link>

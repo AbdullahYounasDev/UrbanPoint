@@ -32,7 +32,7 @@ const Header = async () => {
             </li>
           ) : null}
           <li>
-            <Link href="/about">About</Link>
+            <Link href="/#about">About</Link>
           </li>
           <li>
             <Link href="http://localhost:3000/#contact">Contact</Link>
