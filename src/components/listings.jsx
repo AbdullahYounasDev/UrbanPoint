@@ -7,7 +7,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Loader from "./Loader";
 import Notification from "./Notification";
-import ListingFilters from "./listingFilters";
+import ListingFilters from "@/components/ListingFilters";
 import ProdSearch from "./ProdSearch";
 
 const Listings = () => {
