@@ -17,12 +17,11 @@ export const authOptions = {
         await connect();
         const user = await NextUser.findOne({
           email: credentials?.email,
-        }).select("+password");
+        });
 
         if (!user) throw new Error("Wrong Email");
 
         const passwordMatch = credentials.password === user.password;
-
         if (!passwordMatch) throw new Error("Wrong Password");
         return user;
       },

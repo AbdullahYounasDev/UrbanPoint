@@ -8,12 +8,14 @@ import { useUser } from "@clerk/nextjs";
 import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
 const Page = () => {
-  const { isSignedIn, user } = useUser();
+  const { status, data } = useSession();
   const [activeTransaction, setActiveTransaction] = useState(null);
   const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState([]);
   const [transaction, setTransaction] = useState([]);
   const [userTransaction, setUserTransaction] = useState([]);
@@ -21,6 +23,16 @@ const Page = () => {
   const [properties, setProperties] = useState([]);
   const [search, setSearch] = useState("");
   const [notification, setNotification] = useState({ message: "", type: "" });
+  useEffect(() => {
+    const showSession = () => {
+      if (status === "authenticated") {
+        setUser(data?.user);
+      } else if (status === "loading") {
+        setUser(null);
+      }
+    };
+    showSession();
+  }, [user]);
 
   const fetchTransactions = async () => {
     setLoading(true);
@@ -42,7 +54,7 @@ const Page = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("/api/getusers");
+      const response = await axios.get("/api/users");
       setUsers(response.data.data);
     } catch (err) {
       setNotification({
@@ -75,11 +87,11 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    if (isSignedIn && user && users.length > 0) {
-      const foundUser = users.find((u) => u.clerkId === user.id);
+    if (status === "authenticated" && user && users.length > 0) {
+      const foundUser = users.find((u) => u.email === user?.email);
       setCurrentUser(foundUser || null);
     }
-  }, [isSignedIn, user, users]);
+  }, [status === "authenticated", user, users]);
 
   useEffect(() => {
     if (currentUser && transaction.length > 0) {
@@ -118,12 +130,12 @@ const Page = () => {
                       <div className="w-[75px] h-[75px] sm:mx-6">
                         <img
                           src={currentUser.photo}
-                          alt={currentUser.clerkName}
+                          alt={currentUser.name}
                           className="object-cover w-full h-full rounded-full border"
                         />
                       </div>
                       <div className="w-[115px] py-4 text-[10px] font-bold text-gray-900 sm:pl-6">
-                        {currentUser.clerkName}
+                        {currentUser.name}
                       </div>
                     </div>
                     <div>

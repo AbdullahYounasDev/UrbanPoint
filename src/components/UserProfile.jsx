@@ -7,7 +7,7 @@ import React from "react";
 
 const UserProfile = ({ data, setShowProfile }) => {
   return (
-    <div className="absolute right-1 top-[80px] rounded-sm bg-white p-5 w-[400px] shadow-black shadow-lg">
+    <div className="absolute right-1 top-[80px] rounded-sm bg-white p-5 w-[400px] border border-gray-200 z-50">
       <div
         onClick={() => setShowProfile(false)}
         className="text-sky-1 absolute right-2 top-2 cursor-pointer">

@@ -2,21 +2,15 @@
 
 import Link from "next/link";
 
-const UsersCard = ({ id, name, email, photoSrc, createdAt }) => {
-  const date = new Date(Number(createdAt)); // Convert to number
-
-  const formattedDate = `${date.getDate()}/${
-    date.getMonth() + 1
-  }/${date.getFullYear()}`;
+const UsersCard = ({ name, email, createdAt }) => {
+  const formattedDate = new Date(createdAt).toDateString();
   return (
     <div class="border-sky-1 border-[1px] flex flex-row items-center justify-center bg-[#FFFBFB] rounded-lg shadow-xl w-[300px]">
-      <div class="flex w-full flex-col p-3 gap-3">
-        <div class="flex items-center justify-center">
-          <img
-            src={photoSrc}
-            alt={name}
-            className="w-[100px] h-[100px] object-cover rounded-full"
-          />
+      <div class="flex w-full flex-col p-3 gap-3 justify-center items-center">
+        <div className="px-3 py-1 font-bold h-[70px] w-[70px] rounded-[50px] flex gap-1 justify-center items-center bg-sky-1">
+          <h1 className="text-white font-bold text-[35px]">
+            {name.slice(0, 1).toUpperCase()}
+          </h1>
         </div>
         <div class="w-full space-y-4 flex flex-col justify-center items-center">
           <div class="flex flex-col justify-center">
@@ -25,7 +19,7 @@ const UsersCard = ({ id, name, email, photoSrc, createdAt }) => {
             </h1>
           </div>
 
-          <ul class="space-x-4 flex flex-row justify-center w-full mb-4">
+          <ul class="gap-2 justify-center items-center flex flex-col  w-full mb-4">
             <li class="text-sm text-gray-800">
               <strong class="text-gray-900">Email : </strong> {email}
             </li>
@@ -34,16 +28,6 @@ const UsersCard = ({ id, name, email, photoSrc, createdAt }) => {
               {formattedDate}
             </li>
           </ul>
-          <button class="transition-colors bg-sky-1 p-2 rounded-sm w-full text-white text-hover shadow-md">
-            <Link
-              target="_"
-              href={
-                "https://dashboard.clerk.com/apps/app_2nz7CPaY7sHj0N4wLuIg9mnQuL4/instances/ins_2nz7CUJF9KuwoAcbsQqVtvcipY0/users/" +
-                id
-              }>
-              See More Details
-            </Link>
-          </button>
         </div>
       </div>
     </div>

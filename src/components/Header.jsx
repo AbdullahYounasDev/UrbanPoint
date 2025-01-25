@@ -48,13 +48,13 @@ const Header = () => {
             </div>
           ) : (
             <div>
-              <a href="/signin">
+              <a href="/login">
                 <button className="px-3 py-1 font-bold h-[40px] rounded-[50px] flex gap-1 justify-center items-center">
                   <FontAwesomeIcon
                     className="w-[20px] text-white"
                     icon={faUser}
                   />
-                  Sign In
+                  Log In
                 </button>
               </a>
             </div>
