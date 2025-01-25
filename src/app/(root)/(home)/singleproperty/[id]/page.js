@@ -56,10 +56,6 @@ const PropertyPage = ({ params }) => {
 
   return (
     <>
-      <Head>
-        <title>{property.title} - Premium Property</title>
-        <meta name="description" content={property.description} />
-      </Head>
       <div className=" m-auto sm:w-[80%] w-[100%] p-2">
         <div className="w-full min-h-[90vh] flex gap-3 items-center justify-between md:flex-row flex-col">
           <div className="md:w-[30%] w-[100%] ">

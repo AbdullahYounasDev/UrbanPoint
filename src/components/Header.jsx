@@ -1,14 +1,17 @@
 /** @format */
-
-import { SignedIn, UserButton } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
+"use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import UserNavIcon from "./UserNavIcon";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+import UserProfile from "./UserProfile";
 
-const Header = async () => {
-  const user = await currentUser();
+const Header = () => {
+  const { status, data } = useSession();
+  const [showProfile, setShowProfile] = useState(false);
+
   return (
     <header className="w-[100%]">
       <nav className="flex justify-between items-center w-[100%] bg-white py-5 px-3">
@@ -24,29 +27,28 @@ const Header = async () => {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="http://localhost:3000/#listing">Listing</Link>
+            <Link href="#listing">Listing</Link>
           </li>
-          {user ? (
-            <li>
-              <Link href="/user/transaction">Transactions</Link>
-            </li>
-          ) : null}
           <li>
             <Link href="/#about">About</Link>
           </li>
           <li>
-            <Link href="http://localhost:3000/#contact">Contact</Link>
+            <Link href="/#contact">Contact</Link>
           </li>
         </ul>
         <div className="flex gap-3 items-center">
           <UserNavIcon />
-          {user ? (
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+          {status === "authenticated" ? (
+            <div>
+              <button
+                className=" font-bold h-[40px] rounded-[50px] flex gap-1 justify-center items-center relative"
+                onClick={() => setShowProfile(!showProfile)}>
+                {data && <div>{data.user.name.slice(0, 1).toUpperCase()}</div>}
+              </button>
+            </div>
           ) : (
             <div>
-              <a href="/sign-in">
+              <a href="/signin">
                 <button className="px-3 py-1 font-bold h-[40px] rounded-[50px] flex gap-1 justify-center items-center">
                   <FontAwesomeIcon
                     className="w-[20px] text-white"
@@ -59,6 +61,9 @@ const Header = async () => {
           )}
         </div>
       </nav>
+      {showProfile && (
+        <UserProfile data={data} setShowProfile={setShowProfile} />
+      )}
     </header>
   );
 };

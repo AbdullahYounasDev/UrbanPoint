@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import React from "react";
+import { Provider } from "./nextauthprovider";
 
 export const metadata = {
   title: "Property Rental Website",
@@ -19,9 +20,11 @@ const ubuntu = Ubuntu({
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={ubuntu.className}>{children}</body>
-      </html>
+      <Provider>
+        <html lang="en">
+          <body className={ubuntu.className}>{children}</body>
+        </html>
+      </Provider>
     </ClerkProvider>
   );
 }

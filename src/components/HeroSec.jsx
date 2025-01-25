@@ -3,10 +3,10 @@
 "use client";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Notification from "./Notification";
 import SearchResult from "./SearchResult";
+import { fetchProperties } from "@/utils/properties/fetchProperties";
 
 const HeroSec = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,11 +20,10 @@ const HeroSec = () => {
     bedrooms: "",
   });
 
-  const fetchProperties = async () => {
+  const fetchPropertiesData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get("/api/getallproperties");
-      const data = response.data.data.reverse();
+      const data = await fetchProperties();
       setProperties(data);
     } catch (error) {
       setNotification({
@@ -41,7 +40,7 @@ const HeroSec = () => {
   };
 
   useEffect(() => {
-    fetchProperties();
+    fetchPropertiesData();
   }, []);
   const handleSubmit = async (event) => {
     event.preventDefault();

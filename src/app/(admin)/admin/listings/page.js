@@ -27,6 +27,7 @@ const page = () => {
   }, [isSignedIn, user, router]);
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
+  const [checkData, setCheckData] = useState(false);
   const showAddProd = () => {
     setShow(true);
   };
@@ -38,8 +39,17 @@ const page = () => {
           Add Listings
         </button>
       </div>
-      {show && <AddProdPage onClose={() => setShow(false)} />}
-      <ListingTable searchResult={search} />
+      {show && (
+        <AddProdPage
+          onClose={() => setShow(false)}
+          setCheckData={setCheckData}
+        />
+      )}
+      <ListingTable
+        searchResult={search}
+        setCheckData={setCheckData}
+        checkData={checkData}
+      />
     </div>
   );
 };

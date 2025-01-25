@@ -7,18 +7,18 @@ import React, { useState } from "react";
 import Notification from "./Notification";
 import Loader from "./Loader";
 
-const initialValue = {
-  title: "",
-  bedrooms: 0,
-  bathrooms: 0,
-  address: "",
-  price: 0,
-  propertyType: "",
-  image: "",
-  description: "",
-};
-
-const UpdateProd = ({ onClose, propertyId }) => {
+const UpdateProd = ({ onClose, propertyData, setCheckData }) => {
+  console.log(propertyData);
+  const initialValue = {
+    title: propertyData.title,
+    bedrooms: propertyData.bedrooms,
+    bathrooms: propertyData.bathrooms,
+    address: propertyData.address,
+    price: propertyData.price,
+    propertyType: propertyData.propertyType,
+    image: "",
+    description: propertyData.description,
+  };
   const [notification, setNotification] = useState({ message: "", type: "" });
   const [data, setData] = useState(initialValue);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +44,7 @@ const UpdateProd = ({ onClose, propertyId }) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("id", propertyId); // `propertyId` comes from props
+    formData.append("id", propertyData._id); // `propertyId` comes from props
     formData.append("title", data.title);
     formData.append("bedrooms", data.bedrooms);
     formData.append("bathrooms", data.bathrooms);
@@ -62,6 +62,7 @@ const UpdateProd = ({ onClose, propertyId }) => {
       });
 
       if (response.status === 200) {
+        setCheckData(true);
         onClose(); // Close modal after success
       }
     } catch (error) {
@@ -75,7 +76,7 @@ const UpdateProd = ({ onClose, propertyId }) => {
   };
 
   return (
-    <div className="fixed w-[100%] min-h-[100vh] max-h-[105vh] h-auto inset-0 bg-black bg-opacity-50 flex sm:items-center items-start justify-end sm:justify-center z-20 ">
+    <div className="fixed w-[100vw] min-h-[100vh] max-h-[105vh] h-auto inset-0 bg-black/10 bg-opacity-50 flex sm:items-center items-start justify-center z-20">
       <div className="sm:w-auto w-[100vw]">
         <div className="bg-white p-6 rounded shadow-lg relative">
           <div
@@ -85,8 +86,8 @@ const UpdateProd = ({ onClose, propertyId }) => {
           </div>
           <div>
             <h1 className="text-3xl font-bold my-3">
-              Let'<span className="text-sky-1">s</span> Update Your{" "}
-              <span className="text-sky-1">Listing</span>
+              Let'<span className="text-sky-1">s</span> Update{" "}
+              <span className="text-sky-1">{propertyData.title}</span>
             </h1>
           </div>
           <form
@@ -160,7 +161,6 @@ const UpdateProd = ({ onClose, propertyId }) => {
                 type="file"
                 accept="image/*"
                 onChange={handleChangeInImage}
-                required
               />
             </div>
             <textarea

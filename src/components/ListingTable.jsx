@@ -9,8 +9,8 @@ import { faRefresh, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Notification from "./Notification";
 import UpdateProd from "./UpdateProd";
 
-const ListingTable = ({ searchResult }) => {
-  const [activePropertyId, setActivePropertyId] = useState(null);
+const ListingTable = ({ searchResult, checkData, setCheckData }) => {
+  const [activePropertyData, setactivePropertyData] = useState(null);
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [properties, setProperties] = useState([]);
@@ -68,6 +68,11 @@ const ListingTable = ({ searchResult }) => {
       : properties;
 
   if (isLoading) return <Loader />;
+
+  if (checkData) {
+    setCheckData(false);
+    fetchProperties();
+  }
 
   return (
     <>
@@ -140,20 +145,21 @@ const ListingTable = ({ searchResult }) => {
                       onClick={() => handleDelete(prop._id)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
-                    {show && activePropertyId && (
+                    {show && activePropertyData && (
                       <UpdateProd
                         onClose={() => {
                           setShow(false);
-                          setActivePropertyId(null);
+                          setactivePropertyData(null);
                         }}
-                        propertyId={activePropertyId}
+                        setCheckData={setCheckData}
+                        propertyData={activePropertyData}
                       />
                     )}
 
                     <button
                       className="text-sky-1 font-bold bg-white px-4 py-2 rounded"
                       onClick={() => {
-                        setActivePropertyId(prop._id);
+                        setactivePropertyData(prop);
                         setShow(true);
                       }}>
                       <FontAwesomeIcon icon={faEdit} />

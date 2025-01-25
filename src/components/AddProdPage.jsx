@@ -18,7 +18,7 @@ const initialValue = {
   description: "",
 };
 
-const AddProdPage = ({ onClose }) => {
+const AddProdPage = ({ onClose, setCheckData }) => {
   const [notification, setNotification] = useState({ message: "", type: "" });
   const [data, setData] = useState(initialValue);
   const [isLoading, setIsLoading] = useState(false);
@@ -61,6 +61,7 @@ const AddProdPage = ({ onClose }) => {
 
       // Handle success
       if (response.status === 200) {
+        setCheckData(true);
         onClose(); // Close modal if onClose is provided
       }
     } catch (error) {

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
 
-const ResponsiveUserNav = ({ openNav, setOpenNav }) => {
+const ResponsiveUserNav = ({ setOpenNav }) => {
   return (
     <nav className="fixed flex items-center  lg:block z-40 left-0 top-0 shadow-lg bg-black bg-opacity-50 w-full">
       <div className="min-h-[100vh] flex justify-start items-start gap-20 flex-col w-[250px] pl-7 pt-7 bg-white relative">
@@ -31,29 +31,22 @@ const ResponsiveUserNav = ({ openNav, setOpenNav }) => {
           </li>
           <li>
             <Link
-              href={"/#Listing"}
+              href={"#Listing"}
               className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all">
               Listing
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={"/user/transaction"}
-              className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all">
-              Transactions
             </Link>
           </li>
 
           <li>
             <Link
-              href={"/#about"}
+              href={"#about"}
               className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all">
               About
             </Link>
           </li>
           <li>
             <Link
-              href={"/#contact"}
+              href={"#contact"}
               className="text-black flex gap-2 justify-start items-center py-3 px-2 w-[150px] rounded-md hover:bg-gray-200 hover:transition-all">
               Contact
             </Link>

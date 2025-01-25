@@ -1,5 +1,6 @@
 /** @format */
 "use client";
+
 import {
   faChevronRight,
   faEnvelope,
@@ -7,39 +8,40 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Loader from "./Loader";
+import { fetchProperties } from "@/utils/properties/fetchProperties";
+import Notification from "./Notification";
 
 const Footer = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [notification, setNotification] = useState({ message: "", type: "" });
   const [properties, setProperties] = useState([]);
-
-  const fetchProperties = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get("/api/getallproperties");
-      const data = response.data.data.reverse();
-      setProperties(data);
-    } catch (error) {
-      setNotification({
-        message: "Failed to fetch properties. Please try again later.",
-        type: "error",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const [notification, setNotification] = useState({ message: "", type: "" });
 
   useEffect(() => {
-    fetchProperties();
+    const loadProperties = async () => {
+      setIsLoading(true);
+      try {
+        const data = await fetchProperties();
+        setProperties(data);
+      } catch (error) {
+        setNotification({
+          message: error.message,
+          type: "error",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadProperties();
   }, []);
 
   return (
-    <footer className=" bg-[#252525] py-10">
+    <footer className="bg-[#252525] py-10">
       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 w-[80%] m-auto">
+        {/* Contact Section */}
         <div className="bg-transparent-100 p-4 flex gap-[10px] flex-col">
           <h2 className="font-bold text-[24px] text-white my-5">Contact us</h2>
           <div className="flex gap-4 justify-start items-center">
@@ -48,7 +50,6 @@ const Footer = () => {
               className="text-white text-[14px]"
             />
             <span className="font-bold text-white text-[14px]">
-              {" "}
               (+40) 74 0920 2288
             </span>
           </div>
@@ -71,6 +72,8 @@ const Footer = () => {
             </span>
           </div>
         </div>
+
+        {/* Useful Links Section */}
         <div className="bg-transparent-100 p-4 flex gap-[10px] flex-col">
           <h2 className="font-bold text-[24px] text-white my-5">
             Useful Links
@@ -112,6 +115,8 @@ const Footer = () => {
             </Link>
           </div>
         </div>
+
+        {/* Sold Properties Section */}
         <div className="bg-transparent-100 p-4 flex gap-[10px] flex-col">
           <h2 className="font-bold text-[24px] text-white my-5">
             Sold Properties
@@ -122,7 +127,9 @@ const Footer = () => {
             properties
               .filter((prop) => prop.status === "Sold")
               .map((prop) => (
-                <div className="flex gap-4 justify-start items-center">
+                <div
+                  className="flex gap-4 justify-start items-center"
+                  key={prop._id}>
                   <FontAwesomeIcon
                     icon={faChevronRight}
                     className="text-[#ffffffb3] text-[10px]"
@@ -137,6 +144,13 @@ const Footer = () => {
           )}
         </div>
       </div>
+      {notification.message && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification({ message: "", type: "" })}
+        />
+      )}
     </footer>
   );
 };

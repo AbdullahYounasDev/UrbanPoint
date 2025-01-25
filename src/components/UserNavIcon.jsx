@@ -9,7 +9,7 @@ const UserNavIcon = () => {
   const [openNav, setOpenNav] = useState(false);
   return (
     <>
-      <div className="lg:hidden block">
+      <div className="md:hidden block">
         <FontAwesomeIcon
           icon={faNavicon}
           className="text-sky-1 cursor-pointer"

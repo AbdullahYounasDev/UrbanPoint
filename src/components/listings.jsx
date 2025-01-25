@@ -10,34 +10,10 @@ import Notification from "./Notification";
 import ListingFilters from "@/components/ListingFilters";
 import ProdSearch from "./ProdSearch";
 
-const Listings = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [properties, setProperties] = useState([]);
-  const [filteredProperties, setFilteredProperties] = useState([]);
-  const [notification, setNotification] = useState({ message: "", type: "" });
+const Listings = ({ isLoading, properties, notification, setNotification }) => {
+  const [filteredProperties, setFilteredProperties] = useState(properties);
   const [selectedCities, setSelectedCities] = useState([]);
   const [search, setSearch] = useState("");
-
-  const fetchProperties = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get("/api/getallproperties");
-      const data = response.data.data.reverse();
-      setProperties(data);
-      setFilteredProperties(data); // Initially, show all properties
-    } catch (error) {
-      setNotification({
-        message: "Failed to fetch properties. Please try again later.",
-        type: "error",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProperties();
-  }, []);
 
   // Filter properties when selected cities change
   useEffect(() => {
