@@ -1,12 +1,13 @@
+/** @format */
+
 import { NextResponse } from "next/server";
 
 import { connect } from "@/utils/dbConnect";
 
-import User from "@/models/user.model";
-
 import Property from "@/models/property.model";
 
 import Transaction from "@/models/transaction.model";
+import NextUser from "@/models/nextuser.model";
 
 connect();
 
@@ -14,11 +15,11 @@ export const POST = async (request) => {
   try {
     const reqBody = await request.json();
 
-    const { buyerId, propertyId, amount, cvv, accountNumber, cardHolder } =
+    const { buyerEmail, propertyId, amount, cvv, accountNumber, cardHolder } =
       reqBody;
 
     if (
-      !buyerId ||
+      !buyerEmail ||
       !propertyId ||
       !amount ||
       !cvv ||
@@ -32,7 +33,7 @@ export const POST = async (request) => {
       );
     }
 
-    const user = await User.findOne({ clerkId: buyerId });
+    const user = await NextUser.findOne({ email: buyerEmail });
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 400 });
@@ -58,7 +59,7 @@ export const POST = async (request) => {
     property.status = "Sold";
 
     const newTransaction = new Transaction({
-      buyer: user,
+      buyerEmail: user.email,
       property,
       amount,
       cvv,

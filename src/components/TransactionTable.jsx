@@ -12,6 +12,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Notification from "./Notification";
 import ProdSearch from "./ProdSearch";
 import TransDetails from "./TransDetails";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const TransactionTable = () => {
   const [activeTransaction, setActiveTransaction] = useState(null);
@@ -22,12 +24,22 @@ const TransactionTable = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
 
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, session, router]);
+
+  if (status === "loading") {
+    return <Loader />;
+  }
+
   const fetchTransactions = async () => {
     setLoading(true);
     try {
-      const resposne = await axios.get(
-        "http://localhost:3000/api/getalltransactions",
-      );
+      const resposne = await axios.get("/api/getalltransactions");
       setTransaction(resposne.data.data.reverse());
     } catch (error) {
       setNotification({
@@ -54,7 +66,7 @@ const TransactionTable = () => {
   };
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("/api/getusers");
+      const response = await axios.get("/api/users");
       setUsers(response.data.data);
     } catch (err) {
       setNotification({
@@ -92,17 +104,18 @@ const TransactionTable = () => {
           <div className="flex flex-col border p-3 mt-2 pt-4 gap-4">
             <div className="flex justify-center items-center">
               <div className="flex justify-start items-start flex-col">
-                <div className="w-[75px] h-[75px] sm:mx-6">
-                  <img
-                    src={users.find((user) => user._id == trans.buyer)?.photo}
-                    alt={
-                      users.find((user) => user._id == trans.buyer)?.clerkName
-                    }
-                    className="object-cover w-full h-full rounded-full border"
-                  />
+                <div className="px-3 py-1 font-bold min-h-[75px] min-w-[75px] rounded-[50px] flex gap-1 justify-center items-center bg-sky-1">
+                  <h1 className="text-white font-bold text-[35px]">
+                    {users
+                      .find((user) => user.email == trans.buyerEmail)
+                      ?.name.slice(0, 1)
+                      .toUpperCase()}
+                  </h1>
                 </div>
                 <div className="w-[115px]  py-4 text-[10px] font-bold text-gray-900 sm:pl-6">
-                  {users.find((user) => user._id == trans.buyer)?.clerkName}
+                  {users
+                    .find((user) => user.email == trans.buyerEmail)
+                    ?.name.toUpperCase()}
                 </div>
               </div>
               <div>
@@ -158,7 +171,9 @@ const TransactionTable = () => {
             </button>
             {activeTransaction && activeTransaction._id === trans._id && (
               <TransDetails
-                currentUser={users.find((user) => user._id == trans.buyer)}
+                currentUser={users.find(
+                  (user) => user.email == trans.buyerEmail,
+                )}
                 properties={properties}
                 transaction={activeTransaction}
                 onClose={() => setActiveTransaction(null)}

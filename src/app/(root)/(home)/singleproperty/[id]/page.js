@@ -7,7 +7,6 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBath, faBed, faLocation } from "@fortawesome/free-solid-svg-icons";
 import Transaction from "@/components/Transaction";
-import Head from "next/head";
 import Notification from "@/components/Notification";
 
 const PropertyPage = ({ params }) => {

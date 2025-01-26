@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import Image from "next/image";
 import { useState } from "react";
 
 const DashBoardCards = ({
@@ -39,8 +38,7 @@ const DashBoardCards = ({
       style={{ width: width }}
       className={`bg-white rounded-lg shadow-2xl border-sky-1 border-[1px] flex justify-${
         desc ? "start" : "center"
-      } items-${desc ? "start" : "center"} flex-col gap-3  p-4 my-2`}
-    >
+      } items-${desc ? "start" : "center"} flex-col gap-3  p-4 my-2`}>
       {type == "All Times" ? (
         <FontAwesomeIcon
           icon={faUser}
@@ -67,14 +65,12 @@ const DashBoardCards = ({
       <div
         className={`flex items-${desc ? "start" : "center"} justify-${
           desc ? "start" : "center"
-        } flex-col`}
-      >
+        } flex-col`}>
         {firstname && lastname ? (
           <h2
             className={`text-[14px] text-${
               desc ? "start" : "center"
-            } font-bold text-sky-1`}
-          >
+            } font-bold text-sky-1`}>
             {firstname + " " + lastname}
           </h2>
         ) : null}
@@ -82,8 +78,7 @@ const DashBoardCards = ({
           <h3
             className={`text-${desc ? "[20px]" : "[14px]"}  text-${
               desc ? "start" : "center"
-            } font-medium text-${desc ? "black" : "gray-400"} `}
-          >
+            } font-medium text-${desc ? "black" : "gray-400"} `}>
             {title}
           </h3>
         ) : null}
@@ -96,8 +91,7 @@ const DashBoardCards = ({
         <h4
           className={`${
             desc ? "text-[14px]" : "text-3xl"
-          } font-bold text-sky-1`}
-        >
+          } font-bold text-sky-1`}>
           {desc ? "Phone : +" : ""}
           {numbers}
         </h4>

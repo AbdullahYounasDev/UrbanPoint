@@ -18,12 +18,10 @@ const TransDetails = ({ currentUser, properties, transaction, onClose }) => {
             <h1 className="text-2xl font-bold text-start my-3">
               User's Payment Details:
             </h1>
-            <div className="w-[75px] h-[75px] rounded-full my-3">
-              <img
-                src={currentUser.photo}
-                className="w-full h-full object-cover rounded-full"
-                alt=""
-              />
+            <div className="my-3 px-3 py-1 font-bold h-[75px] w-[75px] rounded-[50px] flex gap-1 justify-center items-center bg-sky-1">
+              <h1 className="text-white font-bold text-[35px]">
+                {currentUser?.name.slice(0, 1).toUpperCase()}
+              </h1>
             </div>
             <ul className="gap-2 flex flex-col justify-start items-start w-full">
               <li className="text-sm text-gray-800">

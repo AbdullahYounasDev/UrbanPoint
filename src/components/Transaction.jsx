@@ -1,19 +1,32 @@
 /** @format */
 
 "use client";
-import { useAuth } from "@clerk/nextjs";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import axios
 import Notification from "./Notification";
 import Loader from "./Loader";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Transaction = ({ onClose, price, id, setIsTransaction }) => {
-  const { isSignedIn, userId } = useAuth();
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, session, router]);
+
+  if (status === "loading") {
+    return <Loader />;
+  }
+
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    buyerId: userId,
+    buyerEmail: session?.user?.email,
     propertyId: id,
     accountNumber: "",
     amount: price,
@@ -27,17 +40,13 @@ const Transaction = ({ onClose, price, id, setIsTransaction }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    if (isSignedIn) {
+    if (status === "authenticated") {
       setIsLoading(true);
       try {
-        const response = await axios.post(
-          "http://localhost:3000/api/createtransaction",
-          formData,
-        );
+        const response = await axios.post("/api/createtransaction", formData);
         setIsTransaction(true);
         onClose();
       } catch (error) {
-        console.error("Error creating transaction:", error);
         setNotification({
           message: "Transaction failed. Please try again.",
           type: "error",

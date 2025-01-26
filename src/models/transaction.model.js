@@ -4,9 +4,8 @@ const { default: mongoose } = require("mongoose");
 
 const transactionSchema = new mongoose.Schema(
   {
-    buyer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    buyerEmail: {
+      type: String,
       required: true,
     },
     property: {

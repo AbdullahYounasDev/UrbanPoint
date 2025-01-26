@@ -1,7 +1,5 @@
 /** @format */
 
-import Link from "next/link";
-
 const UsersCard = ({ name, email, createdAt }) => {
   const formattedDate = new Date(createdAt).toDateString();
   return (

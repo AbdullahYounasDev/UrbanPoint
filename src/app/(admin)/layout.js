@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
   }, [status, session, router]);
 
   if (status === "loading") {
-    return <Loader />; // Show a loader while authentication status is being verified.
+    return <Loader />;
   }
 
   if (

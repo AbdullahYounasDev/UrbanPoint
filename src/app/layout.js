@@ -1,6 +1,5 @@
 /** @format */
 
-import { ClerkProvider } from "@clerk/nextjs";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import React from "react";
@@ -19,12 +18,10 @@ const ubuntu = Ubuntu({
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
-      <Provider>
-        <html lang="en">
-          <body className={ubuntu.className}>{children}</body>
-        </html>
-      </Provider>
-    </ClerkProvider>
+    <Provider>
+      <html lang="en">
+        <body className={ubuntu.className}>{children}</body>
+      </html>
+    </Provider>
   );
 }
