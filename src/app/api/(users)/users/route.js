@@ -1,6 +1,7 @@
 /** @format */
 import NextUser from "@/models/nextuser.model";
 import { connect } from "@/utils/dbConnect";
+import { sendEmail } from "@/utils/sendEmail";
 import { NextResponse } from "next/server";
 await connect();
 export const POST = async (req) => {
@@ -15,6 +16,13 @@ export const POST = async (req) => {
       );
     }
     const newUser = new NextUser({ name, email, password });
+
+    const subject = "Welcome to Our App!";
+    const text = `Hi ${name}, welcome to our application!`;
+    const html = `<p>Hi <strong>${name}</strong>,</p><p>Welcome to our application! We're excited to have you onboard.</p>`;
+
+    await sendEmail(email, subject, text, html);
+
     const user = await newUser.save();
     return NextResponse.json({
       message: "User Created",

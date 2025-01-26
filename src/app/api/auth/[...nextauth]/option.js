@@ -14,20 +14,27 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        // Connect to the database
         await connect();
+
+        // Find user by email
         const user = await NextUser.findOne({
           email: credentials?.email,
         });
 
+        // Check if user exists
         if (!user) throw new Error("Wrong Email");
 
+        // Validate password (add proper hashing in production)
         const passwordMatch = credentials.password === user.password;
         if (!passwordMatch) throw new Error("Wrong Password");
+
         return user;
       },
     }),
   ],
   session: {
-    strategy: "jwt",
+    strategy: "jwt", // Use JWT for sessions
   },
+  secret: process.env.NEXTAUTH_SECRET, // Retrieve secret from the environment
 };
